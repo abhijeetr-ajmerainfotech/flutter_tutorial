@@ -1,3 +1,5 @@
+import 'dart:ui';
+
 import 'package:flutter/material.dart';
 
 void main() => runApp(const MaterialApp(home: MyWidget()));
@@ -11,11 +13,9 @@ class MyWidget extends StatefulWidget {
 class _MyWidgetState extends State<MyWidget> {
   int _counter = 0;
 
-  void addCounter() {
-    setState(() {
-      _counter++;
-    });
-  }
+  void addCounter() => setState(() {
+        _counter++;
+      });
 
   @override
   Widget build(BuildContext context) {
@@ -32,45 +32,59 @@ class _MyWidgetState extends State<MyWidget> {
           ),
           backgroundColor: Colors.black,
         ),
-        body: Column(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              Center(
-                child: Text(
-                  'Counter : $_counter',
-                  style: const TextStyle(color: Colors.white),
-                ),
-              ),
-              Column(
-                  mainAxisAlignment: MainAxisAlignment.end,
+        body:
+            Column(mainAxisAlignment: MainAxisAlignment.spaceEvenly, children: [
+          Center(
+            child: Text(
+              'Counter : $_counter',
+              style: const TextStyle(color: Colors.white, fontSize: 25),
+            ),
+          ),
+          Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              crossAxisAlignment: CrossAxisAlignment.center,
+              children: <Widget>[
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                   crossAxisAlignment: CrossAxisAlignment.center,
                   children: <Widget>[
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                      crossAxisAlignment: CrossAxisAlignment.center,
-                      children: <Widget>[
-                        const Text(
+                    const Expanded(
+                      child: Center(
+                        child: Text(
                           'some text',
                           style: TextStyle(color: Colors.white),
                         ),
-                        TextButton(
-                            onPressed: (() => addCounter),
-                            style: TextButton.styleFrom(
-                              backgroundColor: Colors.amber,
-                            ),
-                            child: const Text(
-                              'click me',
-                              style: TextStyle(color: Colors.white),
-                            )),
-                        Container(
-                          color: Colors.purple,
-                          padding: const EdgeInsets.all(20.0),
-                          child: const Text('inside container'),
-                        ),
-                      ],
+                      ),
                     ),
-                  ]),
-            ]),
+                    Expanded(
+                      child: TextButton(
+                          onPressed: addCounter,
+                          style: TextButton.styleFrom(
+                            backgroundColor: Colors.amber,
+                          ),
+                          child: const Text(
+                            'click me',
+                            style: TextStyle(color: Colors.white),
+                          )),
+                    ),
+                    const SizedBox(
+                      width: 20.0,
+                    ),
+                    Expanded(
+                      child: Container(
+                        color: Colors.purple,
+                        padding: const EdgeInsets.all(20.0),
+                        child: Image.asset(
+                          'assets/images/flutter.png',
+                          height: 50.0,
+                          scale: 2.5,
+                        ),
+                      ),
+                    ),
+                  ],
+                ),
+              ]),
+        ]),
         backgroundColor: Colors.black,
         floatingActionButton: FloatingActionButton(
           backgroundColor: Colors.red[900],
