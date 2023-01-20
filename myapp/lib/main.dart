@@ -1,95 +1,90 @@
 import 'dart:ui';
-
+import 'data.dart';
 import 'package:flutter/material.dart';
 
-void main() => runApp(const MaterialApp(home: MyWidget()));
+void main() => runApp(const MaterialApp(home: QuoteList()));
 
-class MyWidget extends StatefulWidget {
-  const MyWidget({super.key});
+class QuoteList extends StatefulWidget {
+  const QuoteList({super.key});
+
   @override
-  State<MyWidget> createState() => _MyWidgetState();
+  State<QuoteList> createState() => _QuoteListState();
 }
 
-class _MyWidgetState extends State<MyWidget> {
-  int _counter = 0;
-
-  void addCounter() => setState(() {
-        _counter++;
-      });
+class _QuoteListState extends State<QuoteList> {
+  List data = [
+    Data(
+        id: 1, name: 'Leanne Graham', email: 'Sincere@april.biz', status: true),
+    Data(
+        id: 2, name: 'Ervin Howell', email: 'Shanna@melissa.tv', status: false),
+    Data(
+        id: 3,
+        name: 'Clementine Bauch',
+        email: 'Nathan@yesenia.net',
+        status: true),
+    Data(
+        id: 4,
+        name: 'Patricia Lebsack',
+        email: 'Juliane.OConner@kory.org',
+        status: true),
+    Data(id: 5, name: ' Dietrich', email: 'Hettinger@annie.ca', status: true),
+    Data(id: 6, name: 'Patricia', email: 'Juliane@kory.org', status: true),
+    Data(id: 7, name: 'Cilnich', email: 'Lwtinger@annie.ca', status: false),
+  ];
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        appBar: AppBar(
-          title: const Text(
-            'My App',
-            style:
-                TextStyle(fontFamily: 'Poppins', fontWeight: FontWeight.w600),
-          ),
-          leading: IconButton(
-            icon: const Icon(Icons.menu),
-            onPressed: () => {},
-          ),
-          backgroundColor: Colors.black,
-        ),
-        body:
-            Column(mainAxisAlignment: MainAxisAlignment.spaceEvenly, children: [
-          Center(
-            child: Text(
-              'Counter : $_counter',
-              style: const TextStyle(color: Colors.white, fontSize: 25),
-            ),
-          ),
-          Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              crossAxisAlignment: CrossAxisAlignment.center,
-              children: <Widget>[
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                  crossAxisAlignment: CrossAxisAlignment.center,
-                  children: <Widget>[
-                    const Expanded(
-                      child: Center(
-                        child: Text(
-                          'some text',
-                          style: TextStyle(color: Colors.white),
-                        ),
-                      ),
-                    ),
-                    Expanded(
-                      child: TextButton(
-                          onPressed: addCounter,
-                          style: TextButton.styleFrom(
-                            backgroundColor: Colors.amber,
+      appBar: AppBar(
+        leading: const Icon(Icons.menu),
+        title: const Padding(
+            padding: EdgeInsets.only(left: 90.0), child: Text('QuoteList')),
+        backgroundColor: Colors.green,
+      ),
+      body: Column(
+          children: data
+              .map((e) => Row(
+                        children: [
+                          Column(
+                            // mainAxisAlignment: MainAxisAlignment.center,
+                            // crossAxisAlignment: CrossAxisAlignment.center,
+                            children: [
+                              Container(
+                                padding: const EdgeInsets.all(10),
+                                child: CircleAvatar(child: Text('${e.id}')),
+                              )
+                            ],
                           ),
-                          child: const Text(
-                            'click me',
-                            style: TextStyle(color: Colors.white),
-                          )),
-                    ),
-                    const SizedBox(
-                      width: 20.0,
-                    ),
-                    Expanded(
-                      child: Container(
-                        color: Colors.purple,
-                        padding: const EdgeInsets.all(20.0),
-                        child: Image.asset(
-                          'assets/images/flutter.png',
-                          height: 50.0,
-                          scale: 2.5,
-                        ),
-                      ),
-                    ),
-                  ],
-                ),
-              ]),
-        ]),
-        backgroundColor: Colors.black,
-        floatingActionButton: FloatingActionButton(
-          backgroundColor: Colors.red[900],
-          child: const Icon(Icons.add),
-          onPressed: () => {},
-        ));
+                          const SizedBox(width: 20),
+                          Container(
+                            width: 310,
+                            child: Row(
+                              children: [
+                                Column(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: [
+                                    Text('${e.name}',
+                                        style: const TextStyle(
+                                            fontFamily: 'Poppins',
+                                            fontSize: 15,
+                                            fontWeight: FontWeight.bold)),
+                                    const SizedBox(height: 5),
+                                    Text('${e.email}',
+                                        style: const TextStyle(
+                                            fontFamily: 'Poppins',
+                                            fontSize: 12,
+                                            color: Colors.grey))
+                                  ],
+                                ),
+                              ],
+                            ),
+                          ),
+                          Column(children: const [Icon(Icons.more_vert)])
+                        ],
+                      )
+                  // Text('${e.id} ${e.name} ${e.email} ${e.status}'),
+                  )
+              .toList()),
+    );
   }
 }
